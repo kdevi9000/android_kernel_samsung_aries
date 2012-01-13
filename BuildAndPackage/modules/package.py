@@ -123,6 +123,7 @@ def make_zip(name, tree):
     except IOError: raise FileAccessError(name)
 
 def prep_compilation(bootImgObj, destinations, modules):
+    from os import mkdir
     from shutil import copy
 
     #Copy modules

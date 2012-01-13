@@ -52,7 +52,7 @@ def main():
 
 
 def worker(config, nameDev, defDev):
-    from os import pardir
+    from os import pardir, mkdir
     from os.path import isdir
     from shutil import copytree, rmtree
     import make, package
@@ -61,8 +61,10 @@ def worker(config, nameDev, defDev):
     dirDev = bapDir + sep + nameDev
 
     #Make the directory for the device and copy the zip into it (delete any existing ones)
-    if isdir(dirDev): rmtree(dirDev)    
+    if isdir(dirDev): rmtree(dirDev)
     copytree('{0}{1}zip'.format(bapDir, sep), dirDev)
+    mkdir('{0}{1}system{1}lib'.format(dirDev, sep))
+    mkdir('{0}{1}system{1}lib{1}modules'.format(dirDev, sep))
 
     #Start configuring, build, get revision number
     make.configure(defDev, config.clean)

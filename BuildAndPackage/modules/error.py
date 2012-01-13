@@ -30,3 +30,9 @@ class FileAccessError:
     def __init__(self, fileName):
         print('Locked or non-existant file: ' + fileName)
         exit(1)
+
+#Build errors
+class BuildError:
+    def __init__(self):
+        print('Build Failed!')
+        exit(1)
