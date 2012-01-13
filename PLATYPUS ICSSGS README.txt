@@ -1,4 +1,4 @@
-#@FUGU ICSSGS README.txt
+#@PLATYPUS ICSSGS README.txt
 # Copyright 2011 Trae Santiago
 # ================================================
 #
@@ -24,12 +24,14 @@
 # (T.S / T.B / Trae32566 / Trae Santiago)
 
 INSTRUCTIONS:
-1. Fill out the userSettings.cfg in BuildAndPackage/resources folder
-2. Create a tag at the beginning commit of your repository using the following commands:
+1. Fill out the userSettings.cfg in BuildAndPackage/resources folder. Note, you do not need to edit some lines
+2. Check if you have a Start tag by running "git tag". If you don't, create a tag at the beginning commit of your repository using the following commands:
 
 $ git log --pretty=format:%H | tail -1
-$ git tag -a Start ResultAbove
+$ git tag -a Start ResultFromAbove
 
 3. run BuildAndPackage.py from the command prompt using Python 3, IE:
     "$ python3 BuildAndPackage.py"
-4. You will find the made files in the BuildAndPackage directory
+4. Watch the terminal for errors; the built zips (if they are successful!) will be in the BuildAndPackage directory
+
+Note: You may need to update the ramdisks in the 'BuildAndPackage/ramdisks' folder
