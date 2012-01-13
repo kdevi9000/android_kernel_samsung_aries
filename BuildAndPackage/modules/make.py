@@ -59,13 +59,12 @@ def build(log, toolchain):
         buildLog.write('-----------BUILD PROCESS END-----------\n')
         if buildLog.read().find('Error'): raise BuildError()
 
-def configure(defconfig, clean = False, dMain = False):
+def configure(defconfig, clean = False):
     from os import sep
     from shutil import copyfile
     
     if clean: Popen(['make', 'clean']).wait()
-    if dMain: copyfile('{0}{1}arch{1}arm{1}configs{1}{2}'.format(dMain, sep, defconfig), '{0}{1}.config'.format(dMain, sep))
-    else: Popen(['make', defconfig, 'ARCH=arm']).wait()
+    Popen(['make', defconfig, 'ARCH=arm']).wait()
 
 def revision():
     revision = str(Popen(['git', 'describe'], stdout = PIPE).communicate()[0], 'utf-8')

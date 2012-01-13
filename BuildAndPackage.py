@@ -64,8 +64,7 @@ def worker(config, nameDev, defDev):
     copytree('{0}{1}zip'.format(bapDir, sep), dirDev)
 
     #Start configuring, build, get revision number
-    if config.cHack: make.configure(defDev, config.clean, bapDir + '{0}..'.format(sep))
-    else: make.configure(defDev, config.clean)
+    make.configure(defDev, config.clean)
     make.build(bapDir + sep + nameDev + '.log', config.toolchain)
 
     #Start packaging
