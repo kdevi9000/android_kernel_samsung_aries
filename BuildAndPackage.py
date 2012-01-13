@@ -73,7 +73,7 @@ def worker(config, nameDev, defDev):
                         '{0}{1}META-INF{1}com{1}google{1}android{1}updater-script'.format(dirDev, sep),  '{0}{1}resources{1}updater-script.template'.format(bapDir, sep), 
                         config.version)
     package.prep_compilation(package.make_boot_img(config.initRAMDisk, config.kernel, config.recoRAMDisk), 
-                             ('{0}{1}system{1}modules{1}'.format(dirDev, sep), dirDev + sep + 'boot.img'),
+                             ('{0}{1}system{1}lib{1}modules{1}'.format(dirDev, sep), dirDev + sep + 'boot.img'),
                              config.modules)
     package.make_zip((dirDev + sep + pardir + sep + '[Kernel]-' + nameDev + '-' + config.version + '.zip'), dirDev)
 
