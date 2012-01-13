@@ -52,6 +52,7 @@ def main():
 
 
 def worker(config, nameDev, defDev):
+    from os import pardir
     from os.path import isdir
     from shutil import copytree, rmtree
     import make, package

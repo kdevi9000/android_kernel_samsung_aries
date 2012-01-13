@@ -47,7 +47,6 @@ This module includes:
      Returns revision number
 """
 
-from error import BuildError
 from subprocess import Popen, PIPE
 
 def build(log, toolchain):
@@ -57,7 +56,6 @@ def build(log, toolchain):
         buildLog.write('----------BUILD PROCESS START---------\n')
         buildLog.write(str(Popen(['make', 'ARCH=arm', '-j' + str(cpu_count() + 1), 'CROSS_COMPILE={0}'.format(toolchain)], stdout = PIPE).communicate()[0], 'utf-8'))
         buildLog.write('-----------BUILD PROCESS END-----------\n')
-        if buildLog.read().find('Error'): raise BuildError()
 
 def configure(defconfig, clean = False):
     from os import sep
