@@ -52,7 +52,6 @@ def main():
 
 
 def worker(config, nameDev, defDev):
-    from os import  curdir, pardir
     from os.path import isdir
     from shutil import copytree, rmtree
     import make, package
@@ -65,7 +64,8 @@ def worker(config, nameDev, defDev):
     copytree('{0}{1}zip'.format(bapDir, sep), dirDev)
 
     #Start configuring, build, get revision number
-    make.configure(defDev, config.clean)
+    if config.cHack: make.configure(defDev, config.clean, bapDir + '{0}..'.format(sep))
+    else: make.configure(defDev, config.clean)
     make.build(bapDir + sep + nameDev + '.log', config.toolchain)
 
     #Start packaging

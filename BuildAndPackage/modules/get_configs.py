@@ -83,9 +83,13 @@ This class includes:
 
                 #Set variables
                 #Perhaps this can be made more high level later; for now we stick with what works
+                self.cFlags = get_var('cflags = ').split('; ')
+                self.cHack = get_var('config-hack = ')
                 self.clean = get_var('clean = ')
+                self.cppFlags = get_var('cppflags = ').split('; ')
                 self.initRAMDisk = get_var('initial-ramdisk = ')
-                self.modules = get_var('modules = ')
+                self.ldFlags = get_var('ldflags = ').split('; ')
+                self.modules = get_var('modules = ').split('; ')
                 self.recoRAMDisk = get_var('recovery-ramdisk = ')
                 self.toolchain = get_var('toolchain = ')
                 self.version = get_var('version = ')
@@ -94,5 +98,7 @@ This class includes:
                 #Do any other work needed to the variables
                 if len(self.clean) > 100: self.clean = False
                 else: self.clean = True
-                self.modules = self.modules.split('; ')
+                if len(self.cHack) > 100: self.cHack = False
+                else: self.cHack = True
+
         except IOError: raise FileAccessError(self.resources + 'userSettings.cfg')

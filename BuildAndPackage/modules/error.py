@@ -35,4 +35,5 @@ class FileAccessError:
 class BuildError:
     def __init__(self):
         print('Build Failed!')
+        exit(1)
         #Let them continue building

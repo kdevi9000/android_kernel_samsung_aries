@@ -39,25 +39,33 @@ This module includes:
      Returns None
      defconfig (string -> device defconfig): Device defconfig
      clean (bool): Clean before make?
+     dMain (string -> main directory): used to determine whether we copy defconf
+     manually, or we use make; also tells us the main directory.
 
   o revision():
      Gets Git revision (REQUIRES A TAG!)
      Returns revision number
 """
 
-from multiprocessing import cpu_count
+from error import BuildError
 from subprocess import Popen, PIPE
 
 def build(log, toolchain):
+    from multiprocessing import cpu_count
+    
     with open(log, 'w+') as buildLog:
         buildLog.write('----------BUILD PROCESS START---------\n')
         buildLog.write(str(Popen(['make', 'ARCH=arm', '-j' + str(cpu_count() + 1), 'CROSS_COMPILE={0}'.format(toolchain)], stdout = PIPE).communicate()[0], 'utf-8'))
         buildLog.write('-----------BUILD PROCESS END-----------\n')
         if buildLog.read().find('Error'): raise BuildError()
 
-def configure(defconfig, clean = False):
+def configure(defconfig, clean = False, dMain = False):
+    from os import sep
+    from shutil import copyfile
+    
     if clean: Popen(['make', 'clean']).wait()
-    Popen(['make', defconfig, 'ARCH=arm']).wait()
+    if dMain: copyfile('{0}{1}arch{1}arm{1}configs{1}{2}'.format(dMain, sep, defconfig), '{0}{1}.config'.format(dMain, sep))
+    else: Popen(['make', defconfig, 'ARCH=arm']).wait()
 
 def revision():
     revision = str(Popen(['git', 'describe'], stdout = PIPE).communicate()[0], 'utf-8')
